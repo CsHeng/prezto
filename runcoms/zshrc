@@ -1,13 +1,41 @@
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
 
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
+# define android related
+export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
+export ANDROID_HOME=$ANDROID_SDK_ROOT
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+export PATH="$PATH:$NVM_DIR/versions/node/v9.8.0/bin/"
+
+# mysql client
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+
+# gettext
+export PATH="/usr/local/opt/gettext/bin:$PATH"
+
+# pyenv with virtualenv
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+
+
+# brew install zsh-completions
+fpath=(/usr/local/share/zsh-completions $fpath)
+
+# manually download completions
+fpath=(~/.zsh/completion $fpath)
+
+# load completions
+autoload -Uz compinit && compinit -i
+
+compdef mosh=ssh
+
+source ~/.aliases
+source ~/.functions
+
+# load nvm node
+loadnvm
